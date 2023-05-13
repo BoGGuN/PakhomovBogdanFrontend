@@ -1,0 +1,190 @@
+* {
+   margin: 0;
+   padding:0;
+   box-sizing: border-box;
+   }
+   body {
+      background-image: url(assets/1.jpg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+   }
+   .creator {
+      display:flex;
+      width: 100%;
+      justify-content: space-between;
+   }
+   .creatoral {
+      display:flex;
+      padding:10px;
+      margin:20px;
+      background-color:rgb(255, 224, 254);
+      border: 5px solid purple;
+      border-radius: 10px;
+      flex-direction: column;
+      gap:10px;
+   }
+   #message {
+      display:none;
+      padding: 10px;
+      margin:20px;
+      align-items: center;
+      background-color:rgb(255, 224, 254);
+      border: 5px solid purple;
+      border-radius: 10px;
+   }
+   .cr {
+      color:purple;
+      font-family: "Comic Sans MS";
+      font-size:15px;
+      font-weight: bold;
+   }
+   .top {
+      display: flex;
+      padding:15px;
+      border: 10px solid purple;
+      border-radius: 50px;
+      background-color: rgb(255, 224, 254);
+    margin-bottom: 100px;
+    margin-top: 100px;
+      align-items: center;
+      gap:20px;
+      
+   }
+   .toptext {
+      color:purple;
+      font-family: "Comic Sans MS";
+      font-size:20px;
+      font-size: 150px;
+   }
+  .cat {
+   width:250px;
+   height: 200px;
+   border: 5px solid purple;
+   border-radius: 50px;
+  }
+.wrapper {
+   display:flex;
+      width:100%;
+      margin-top:-100px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+}
+.container {
+   display:flex;
+   padding: 20px;
+   background-color:rgb(255, 224, 254);
+   border:5px solid purple;
+   border-radius: 20px;
+}
+.content {
+   display:flex;
+   flex-direction: column;
+   width: 35vw;
+   gap:20px;
+}
+.name {
+   display:flex;
+   flex-direction: column;
+   gap:5px;
+}
+.input {
+   background: rgb(255, 224, 254);
+   color:purple;
+   font-family: "Comic Sans MS";
+   font-weight: bold;
+   outline:none;
+   border:none;
+   border-bottom: 1px solid purple;
+}
+.cont {
+   font-family: "Comic Sans MS";
+   color: purple;
+   font-size:20px;
+   font-weight: bold;
+}
+.buttons {
+   display: flex;
+   flex-direction: row;
+   gap:50px;
+ justify-content: right;
+}
+.but {
+   background-color: rgb(255, 224, 254);
+   border: 5px solid purple;
+   border-radius:10px;
+   color: purple;
+   padding:5px;
+   font-family: "Comic Sans MS";
+   cursor:pointer;
+   font-weight: bold;
+   font-size:15px;
+   width:10vw;
+}
+.but:active {
+   background-color:lightgreen;
+   border: 5px solid green;
+   border-radius:10px;
+   color: blue;
+}
+#todolist {
+   display:flex;
+   flex-direction:column;
+   width: 100%;
+   align-items: center;
+}
+.todoel {
+   display:flex;
+   flex-direction: column;
+   width: 50vw;
+   padding:20px;
+   margin:50px;
+   background-color:rgb(255, 224, 254);
+   border: 5px solid purple;
+   border-radius: 20px;
+   gap:20px;
+   word-wrap: break-word;
+}
+.head {
+   display:flex;
+   justify-content: right;
+   align-items: center;
+   gap:50px;
+}
+.bodyname {
+   display:flex;
+   justify-content: space-between;
+   align-items: center;
+   gap:50px;
+}
+.bodytext {
+   display: flex;
+   align-items: center;
+}
+.spanhead {
+cursor:pointer;
+}
+.close {
+   cursor:pointer;
+}
+.spanhead {
+   border:2px solid purple;
+   background-color:rgb(255, 224, 254);
+}
+.spanhead:active {
+   background-color:lightgreen;
+   border: 5px solid green;
+   border-radius:10px;
+   color: blue;
+}
+.close {
+   border:2px solid purple;
+   background-color:rgb(255, 224, 254);
+}
+.close:active {
+   background-color:lightgreen;
+   border: 5px solid green;
+   border-radius:10px;
+   color: blue;
+}
