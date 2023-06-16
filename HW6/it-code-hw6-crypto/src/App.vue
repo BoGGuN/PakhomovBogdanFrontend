@@ -40,7 +40,8 @@
 </template>
 
 <script lang="ts" setup>
-
+import {start} from './utils/utils.ts'
+start('default',0);
 </script>
 
 <style scoped>

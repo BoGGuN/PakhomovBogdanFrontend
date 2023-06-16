@@ -31,31 +31,8 @@
 
       </template>
       <script lang="ts" setup>
-      import {d,saver} from '../../utils/utils.ts'
-    
-
-      function checking(el) {
-  for (let prop in el) {
-    if (typeof el[prop] === 'object') {
-      checking(el[prop]);
-    } else if (!el[prop]) {
-      el[prop] = 'Неизвестно';
-    }
-  }
-}
-
-
-     fetch('https://api.coingecko.com/api/v3/coins/'+d.value)
-.then(function (resp){return resp.json()}).then(function (data) {
-   saver.value=data;
-   if (saver.value.image.large=='missing_large.png')
-   saver.value.image.large='https://w7.pngwing.com/pngs/349/105/png-transparent-false-error-missing-absent-x-red-cross-letter-circle-gui.png';
-      checking(saver.value);
-      if(!saver.value.genesis_date)
-      saver.value.genesis_date="Неизвестно";
-      saver.value.description.en = saver.value.description.en.slice(0, 300);
-}).catch(function er() {alert('Ошибка3')})
-
+      import {saver,start} from '../../utils/utils.ts'
+      start('infer',0)
    </script>
    <style scoped>
 .infowind {
