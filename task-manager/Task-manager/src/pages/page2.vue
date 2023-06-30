@@ -11,15 +11,24 @@
             <div class="input_window text">
                <input type="text" class="input_time inp text" placeholder="Время" v-model="timer">
                <input type="text" class="input_task inp text" placeholder="Задание" v-model="tasker">
-               <button @click="saver()" class="but_save but text">сохранить</button>
+               <button @click="useStore().Store_saver(b)" class="but_save but text">сохранить</button>
             </div>
       </div>
       <div class="task_el" v-for="tasks in datebase[b].tasks"> 
          <div class="el_container">
-            <div class="text el_time">{{ tasks.time }}</div>
-            <div class="text el_text">{{ tasks.task }}</div>
-      </div>
-         <button @click="deleter ($event)" class="but text">удалить</button>
+            <div class="text el_time">
+               {{ tasks.time }}
+            </div>
+            <input class="inp input_time text" type="text" style="display:none;" placeholder="Время">
+            <input class="inp input_task text" type="text" style="display:none;" placeholder="Задание">
+            <div class="text el_text">
+               {{ tasks.task }}
+            </div>
+         </div>
+         <div class="button_window">
+            <button @click="useStore().Store_deleter($event,b)" class="but text">удалить</button>
+            <button @click="useStore().Store_edit($event,b)" class="but text">редактировать</button>
+         </div>
       </div>
    </div>
 
@@ -27,39 +36,17 @@
       
          <script lang="ts" setup>
          import {ref} from 'vue'
-         import {datebase,savedate,currentmonth,currentyear,currentdate} from '../utils/utils.ts'
+         import {datebase,currentmonth,currentyear,currentdate,tasker,timer} from '../utils/utils.ts'
+         import {useStore} from '../store/store'
+         tasker.value='';
+         timer.value='';
          let b=ref(1);/*начальный индекс, который будет указывать на конкретную отрисовываемую дату*/
-         let tasker=ref('');/*v-model в input задачи*/
-         let timer=ref('');/*v-model в input время*/
          for (let i=0;i<datebase.value.length;i++) {
             /* Начальное определение конкретного дня и b индекса к нему*/
             if (currentyear.value==datebase.value[i].year&&currentmonth.value==datebase.value[i].month&&currentdate.value==datebase.value[i].date){
                b.value=i;
                break;
             }
-         }
-
-         function deleter (event:any) {
-            /*Функция удаляет найденную в datebase.value[b.value] задачу tasks[i] (datebase.value[b.value].tasks[i])
-            В конце стоит savedate() для сохранения изменений в localStorage*/
-            for (let i=0;i<datebase.value[b.value].tasks.length;i++){
-               if (event.target.previousElementSibling.firstElementChild.textContent==datebase.value[b.value].tasks[i].time&&event.target.previousElementSibling.lastElementChild.textContent==datebase.value[b.value].tasks[i].task){
-                  datebase.value[b.value].tasks.splice(i,1);
-                  break;
-               }
-            }
-            savedate();
-         }
-         function saver (){
-            /*Пушит запись в tasks в datebase
-            В конце стоит savedate() для сохранения изменений в localStorage*/
-            if (timer.value!=''&&tasker.value!=''){
-            let newobject={time:timer.value,task:tasker.value};
-            datebase.value[b.value].tasks.push(newobject);
-            timer.value='';
-            tasker.value='';
-            }
-            savedate();
          }
       </script>
       
@@ -117,7 +104,7 @@
 }
 .but {
    min-width:20vw;
-   height:4vw;
+   height:3vw;
 }
 .but_save {
    min-width:100%;
@@ -140,5 +127,10 @@
 .el_text,.el_time {
    word-wrap: break-word;
   overflow-wrap: break-word;
+}
+.button_window {
+   display:flex;
+   flex-direction: column;
+   gap:0.5vw;
 }
       </style>  

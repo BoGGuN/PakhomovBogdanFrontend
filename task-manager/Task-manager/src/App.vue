@@ -20,6 +20,8 @@
 </template>
 
 <script setup lang="ts">
+import {useStore} from './store/store'
+useStore().Store_calendar(); /* Datebase принимает начальные значения текущего года*/ 
 </script>
 
 <style scoped>

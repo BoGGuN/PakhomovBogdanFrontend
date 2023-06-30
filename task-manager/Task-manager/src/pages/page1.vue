@@ -3,82 +3,27 @@
    <div class="date_header">
       <span class="text">Выбор даты</span>
       <div class="select_year">
-      <button @click="minus()" class="but text butplus">-</button>
+      <button @click="useStore().Store_minus()" class="but text butplus">-</button>
       <div class="text">{{currentyear}}</div>
-      <button @click="plus()" class="but text butplus">+</button>
+      <button @click="useStore().Store_plus()" class="but text butplus">+</button>
    </div>
-      <button @click="selectmonth()" class="but text">{{currentmonth}}</button>
+      <button @click="useStore().Store_selectmonth()" class="but text">{{currentmonth}}</button>
    </div>
       <div class="date_select">
-         <div @click="selectdate($event)" class="el months text" v-for="months in monthar2"> {{months}}</div>
-         <router-link @click="setdate($event)" to="/tasks" class="el days text" v-for="days in daysar"><div>{{ days.date }}</div><div>{{ days.day }}</div></router-link>
+         <div @click="useStore().Store_selectdate($event)" class="el months text" v-for="months in monthar2"> {{months}}</div>
+         <router-link @click="useStore().Store_setdate($event)" to="/tasks" class="el days text" v-for="days in daysar"><div>{{ days.date }}</div><div>{{ days.day }}</div></router-link>
       </div>
 </div>
 
 </template>
       
          <script lang="ts" setup>
-import {watch,ref} from 'vue'
-import {calendar,datebase,currentyear,currentmonth,currentdate} from '../utils/utils.ts'
-interface Daysar {date:number,day:string};
-let monthar=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];  /*Черновой массив для monthar2*/
-let daysar=ref<Daysar[]>([]); /*Массив дней, который будет отрисовываться при выборе даты*/
-let monthar2=ref<String[]>([]); /*Массив, который будет отрисовываться при выборе месяца*/
+import {watch} from 'vue'
+import {currentyear,currentmonth,daysar,monthar2} from '../utils/utils.ts'
+import {useStore} from '../store/store'
 
-watch(currentyear,calendar);/*При +- изменении currentyear в массив datebase будет добавляться год*/
+watch(currentyear, useStore().Store_calendar);/*При +- изменении currentyear в массив datebase будет добавляться год*/
 
-function setdate(event: any) {
-   /*Функция берет из элемента дату в currentdate, при нажатии на router-link есть вариант нажать на 3 элемента:
-   div с датой, div с Днем недели и div со всеми двумя дочерними элементами.
-   В каждом из трёх вариантом нужно получить дату:
-   1-й - если нажатие по дате, то textcontent можно обратить в number,
-   2-й - если нажатие на целый div с двумя дочерними, то идет проверка на то, что первый дочерний элемент обращается в number
-   3-й - если нажатие по дню недели, то проверка на то, что предыдущий соседний элемент обращается в number
-   */
-   if (Number(event.target.textContent)) {
-     currentdate.value = Number(event.target.textContent);
-   } else if (event.target.firstElementChild && Number(event.target.firstElementChild.textContent)) {
-     currentdate.value = Number(event.target.firstElementChild.textContent);
-   } else if (event.target.previousElementSibling && Number(event.target.previousElementSibling.textContent)) {
-     currentdate.value = Number(event.target.previousElementSibling.textContent);
-   }
-}
-
-function selectdate(event:any) {
-   /*При выборе даты отрисовывается массив daysar, происходит поиск дат по currentyear и currentmonth, которые идут в datebase по порядку и пушатся в daysar*/
-   monthar2.value=[];
-   currentmonth.value=event.target.textContent;
-   if (currentmonth.value!='Месяц'){
-   for (let i=0;i<datebase.value.length;i++){
-      if ((datebase.value[i].year==currentyear.value)&&(datebase.value[i].month==currentmonth.value)) {
-         daysar.value.push(datebase.value[i]);
-      }
-   }
-}
-}
-function selectmonth(){
-   /*При выборе месяца отрисовывается массив monthar2*/
-daysar.value=[];
-monthar2.value=[...monthar];
-}
-function plus() {
-   /*Увиличивает currentyear на 1*/
-   if (currentyear.value<2060){
-   currentyear.value++;
-   currentmonth.value="Месяц";
-   daysar.value=[];
-   monthar2.value=[];
-   }
-}
-function minus() {
-   /*Уменьшает currentyear на 1*/
-   if (currentyear.value>1970){
-   currentyear.value--;
-   currentmonth.value="Месяц";
-   daysar.value=[];
-   monthar2.value=[];
-   }
-}
       </script>
       
       <style scoped>
